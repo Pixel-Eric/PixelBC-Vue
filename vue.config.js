@@ -1,0 +1,24 @@
+module.exports={
+    lintOnSave:false,
+    devServer:{
+        proxy:{
+            //用户服务代理
+            'api/user':{
+                target:'http://localhost:3333/'
+            },
+            //上传服务代理
+            'api/upload':{
+                target:'http://localhost:10027/'
+            },
+            //版块服务代理
+            'api/plate':{
+                target:'http://localhost:7170/'
+            },
+            //文章服务代理
+            'api/article':{
+                target:'http://localhost:7171/'
+            }
+            
+        }
+    }
+}
