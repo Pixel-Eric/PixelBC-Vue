@@ -6,3 +6,5 @@
 ## 版本更迭
 ### version - 0.0.1 PHOTOSHOP
 功能开发当中，敬请期待
+### version - 0.0.2 PHOTOSHOP
+完善部分文章发布功能、登录功能
