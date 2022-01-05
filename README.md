@@ -1,24 +1,8 @@
-# pixle_vue
+# 像素脑洞 Pixel 论坛GitHub仓库
 
-## Project setup
-```
-npm install
-```
+## 项目概述
+本项目为毕业设计作品，非商业用途，后续开发由Pixel进行同一维护，有兴趣的小伙伴们可以进行协同开发该项目.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 版本更迭
+### version - 0.0.1 PHOTOSHOP
+功能开发当中
