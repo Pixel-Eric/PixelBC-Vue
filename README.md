@@ -9,4 +9,4 @@
 ### version - 0.0.2 PHOTOSHOP
 完善部分文章发布功能、登录功能
 ### version - 0.0.3 PHOTOSHOP
-Gitee 特别更新
+GitHub 特别更新
