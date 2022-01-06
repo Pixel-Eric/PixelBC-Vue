@@ -2,7 +2,7 @@
   <div class="all">
     <Top />
     <div class="loca">
-        <Location />
+        <Location :pid="pid" />
     </div>
     <div class="plate">
         <PlateTop v-if="topflag" :config="info" />

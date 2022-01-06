@@ -83,3 +83,9 @@ export function getReplyNum(aid){
         url:`${process.env.VUE_APP_BASE_ARTICLE}getReplyNum/${aid}`
     })
 }
+//获取当前版块的名称
+export function getPalteName(pid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_PLATE}getpaltename/${pid}`
+    })
+}

@@ -2,7 +2,7 @@
   <div class="all">
     <Top />
     <div class="cur">
-        <Location />
+        <Location :pid="pid" :aname="aname" />
     </div>
     <div class="page-btn">
         <PageTurn 
@@ -69,6 +69,8 @@ export default {
             repflag:false,
             numflag:false
         })
+        let pid = ref(1);
+        let aname = ref("板块名称");
         function Jump(){
             window.scrollTo(0,999999);
         }
@@ -80,12 +82,16 @@ export default {
             total:10,
             curpage:props.page
         })
-        return{Jump,...toRefs(config),...toRefs(flag),pageconfig,...routeJump}
+        return{Jump,...toRefs(config),...toRefs(flag)
+        ,pageconfig,...routeJump,pid,aname}
     },
     created(){
         //获取文章的信息
         getArticle(this.aid).then(res=>{
             this.data = res.data;
+            this.pid = res.data.Article.aPit;
+            this.aname = res.data.Article.aTitle;
+            console.log(res.data.Article.aTitle)
             this.artflag = true;
         })
         //获取文章的回复信息

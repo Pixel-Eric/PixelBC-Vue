@@ -16,3 +16,4 @@
 1、迁移部分API.
 2、添加一个新的hook，配合PageTurn组件进行使用
 3、修正部分BUG
+4、完成Locaiton组件的开发
