@@ -1,10 +1,14 @@
 <template>
   <div class="container">
       <div class="head">
-          <p @click="send">发帖</p>
+          <p v-if="!islogin" @click="send">发帖</p>
       </div>
       <div class="content">
           <input type="text" v-model="title" placeholder="请输入标题">
+          <div class="login-none" v-if="islogin">
+              <p>请先登录</p>
+              <router-link to="/login" >点击此处登录</router-link>
+          </div>
           <Editor id="tinymce" v-model="tinymceHtml" :init="init" />
       </div>
   </div>
@@ -25,13 +29,21 @@ import "tinymce/plugins/hr"
 import "tinymce/plugins/emoticons"
 import { release } from '../../request/apis';
 import { getSession2 } from '../../session'
+import { useRouter } from 'vue-router';
 export default {
-    props:["pid"],
+    props:["pid","page"],
     setup(props){
+        //获取路由组件
+        const router = useRouter();
+        
         //初始化富文本
         let config = reactive({
+            //文章内容
             tinymceHtml: '',
+            //文章标题
             title:'',
+            //标识用户是否登录(默认未登录)
+            islogin:false,
             init: {
                 selector: 'myeditablediv',
                 language_url: '/js/zh_CN.js',
@@ -51,6 +63,13 @@ export default {
                 fixed_toolbar_container:'mytoolbar'
             }
         })
+
+        //检测是否已经登录账号
+        if(getSession2()==null){
+            //还没有登录账号
+            config.islogin = true;
+        }
+
         //发送文章
         function send(){
             if(props?.pid>0){
@@ -59,6 +78,7 @@ export default {
                         release(props.pid,config.title,config.tinymceHtml).then(res=>{
                             if(res.data?.Success){
                                 alert(res.data.Success);
+                                router.push({name:"plate",params:{pid:props.pid,page:props.page}});
                             }else{
                                 console.error(res.data.Error);
                             }
@@ -73,6 +93,7 @@ export default {
                 console.error("发布文章异常");
             }
         }
+
         return {...toRefs(config),send}
     },
     components:{Editor}
@@ -81,6 +102,7 @@ export default {
 
 <style lang="less" scoped>
 .container{
+    position: relative;
     margin-top: 1em;
     background-color: white;
     .head{
@@ -106,5 +128,19 @@ export default {
             font-size: 1.3em;
         }
     }
+}
+.login-none{
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 1.5em;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.589);
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: white;
 }
 </style>

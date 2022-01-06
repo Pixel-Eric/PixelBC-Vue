@@ -64,6 +64,6 @@ router.beforeEach((to,from,next)=>{
     }
     next();
 });
-router.
+
 
 export default router

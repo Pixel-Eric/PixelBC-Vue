@@ -21,16 +21,13 @@
 
 <script>
 import { reactive,toRefs } from "vue"
-// import { jumpPlate } from "../../hooks/jump";
 import { useRouter } from "vue-router"; 
 export default {
     props:["config"],
      setup(props){
-         
         let config = reactive(props.config);
         const router = useRouter()
         function jump(){
-            console.log(config.pid)
             router.push({name:'Section',params:{pid:config.pid,page:1}});
         }
         return {...toRefs(config),jump}

@@ -1,19 +1,17 @@
 <template>
-    <router-view />
+    <router-view :key="$route.fullPath" />
     <bottom />
 </template>
 <script>
-import {defineAsyncComponent,inject,ref} from 'vue'
+import {defineAsyncComponent,watch} from 'vue'
 import { initAll } from './init'
-import {useRoute} from 'vue-router'
+import {useRouter} from 'vue-router'
 const utop = defineAsyncComponent(()=>import('@/components/Universal/Top.vue'))
 const bottom = defineAsyncComponent(()=>import('@/components/Home/bottom.vue'))
 export default{
     setup() {
         initAll();
-        const route = useRoute();
-        let showHomeTip = ref(route.name == 'home');
-        return {showHomeTip}
+        const router = useRouter();
     },
     components:{top,bottom,utop}
 }

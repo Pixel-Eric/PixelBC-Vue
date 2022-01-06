@@ -29,7 +29,7 @@ export default {
             text:'收缩',
             borderRadius:'.5em .5em 0 0'
         })
-        let config = reactive(props.config);
+        let config = props.config;
         function change(){
             if(info.height == '28em'){
                 info.height = '3em';

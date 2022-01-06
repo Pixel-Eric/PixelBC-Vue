@@ -6,15 +6,27 @@
     </div>
     <div class="plate">
         <PlateTop v-if="topflag" :config="info" />
-        <PageTurn v-if="pagefalg" :config="pageconfig" >
+        <PageTurn 
+        v-if="pagefalg" 
+        :pageUp="pageUp" 
+        :pageDown="pageDown" 
+        :jumpPage="jumpPage" 
+        :config="pageconfig" 
+        :getAllpage="getPage" >
             <div class="release">
                 <p @click="Jump">发帖</p>
             </div>
         </PageTurn>
         <PlateTable v-if="artflag" :config="article" />
-        <PageTurn type="rigth" v-if="pagefalg" :config="pageconfig" />
+        <PageTurn 
+        type="rigth" 
+        v-if="pagefalg" 
+        :pageUp="pageUp" 
+        :pageDown="pageDown" 
+        :jumpPage="jumpPage" 
+        :config="pageconfig"  />
         <div class="centent-box">
-            <ContentBox :pid="pid" />
+            <ContentBox :pid="pid" :page="page" />
         </div>
     </div>
   </div>
@@ -28,21 +40,56 @@ import Top from "../../components/Universal/Top.vue"
 import ContentBox from "../../components/Universal/ContentBox.vue"
 import Location from "../../components/Universal/Location.vue"
 import { getSectionArticle,getSection,getArticleNum } from "../../request/apis"
-import { reactive,ref } from "vue"
+import { reactive,ref, toRefs } from "vue"
+import { useRouter } from "vue-router"
 export default {
     props:["pid","page"],
     setup(props){
         window.scroll(0,0);
+
+        const router = useRouter();
+
         //板块信息和帖子信息
         let pid = props.pid;
         let page = props.page;
-        let article = reactive([""]);
-        let info = null;
+        // let article = reactive([""]);
+        // let info = reactive({});
+
+        let config = reactive({
+            info:null,
+            article:null
+        })
+
+        let allpage = ref(1);
         //数据显示的flag
         let topflag = ref(false);
         let artflag = ref(false);
         let pagefalg = ref(false);
         
+        //上一页的回调逻辑
+        function pageUp(){
+            console.log("调用")
+            if(parseInt(page)-1>0){
+                router.push({name:'Section',params:{pid,"page":parseInt(page)-1}});
+            }
+        }
+        //获取数据总页数
+        function getPage(page){
+            allpage.value = page;
+        }
+        //跳转到下一页
+        function pageDown(){
+            if((parseInt(page) + 1)<=allpage.value){
+                router.push({name:'Section',params:{pid,"page":parseInt(page)+1}});
+            }
+        }
+        //跳转任意页面
+        function jumpPage(jpage){
+            if(jpage>0&&jpage<=allpage.value){
+                router.push({name:'Section',params:{pid,page:jpage}});
+            }
+        }
+
         //翻页工具配置信息
         let pageconfig = reactive({
             //总数
@@ -53,33 +100,47 @@ export default {
             curpage:page
         })
         
+        
 
         //移动到页面底端
         function Jump(){
             window.scroll(0,999999999);
         }
-        return {Jump,article,info,topflag,artflag,pagefalg,pageconfig,pid}
+
+        function getSectionArt(page){
+            //获取帖子数据
+            getSectionArticle(pid,page).then(res=>{
+                config.article =reactive( res.data);
+                artflag.value = true;
+            })
+        }
+        function getSec(){
+            //获取板块数据
+            getSection(pid).then(res=>{
+                config.info = res.data;
+                topflag.value = true;
+            })
+        }
+
+        function getArtNum(){
+            //获取帖子的总数量
+            getArticleNum(pid).then(res=>{
+                pageconfig.all = res.data.Success;
+                pagefalg.value = true;
+            })
+        }
+        
+
+
+        return {Jump,...toRefs(config),topflag,artflag,pagefalg,pageconfig,pid,
+        pageUp,getPage,pageDown,jumpPage,allpage,getSectionArt,getSec,getArtNum}
     },
     created(){
-        //获取帖子数据
-        getSectionArticle(this.pid,this.page).then(res=>{
-            this.article = res.data;
-            console.log(res.data);
-            this.artflag = true;
-        })
-        //获取板块数据
-        getSection(this.pid).then(res=>{
-            this.info = res.data;
-            console.log(res.data);
-            this.topflag = true;
-        })
-        //获取帖子的总数量
-        getArticleNum(this.pid).then(res=>{
-            this.pageconfig.all = res.data.Success;
-            this.pagefalg = true;
-        })
+        this.getSectionArt(this.page);
+        this.getSec();
+        this.getArtNum();
     },
-    components:{PlateTop,PlateTable,Top,PageTurn,ContentBox,Location}
+    components:{PlateTop,PlateTable,Top,PageTurn,ContentBox,Location,}
 }
 </script>
 

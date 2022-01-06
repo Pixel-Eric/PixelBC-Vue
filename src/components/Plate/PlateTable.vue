@@ -12,6 +12,9 @@
           <p class="p-td">null</p>
           <p class="p-td">2021-10</p>
       </div>
+      <div class="p-tr-none" v-if="data.length==0"> 
+          <p>该版块暂时没有人发布文章</p>
+      </div>
   </div>
 </template>
 
@@ -24,7 +27,6 @@ export default {
     setup(props){
        let data = props.config;
        const router = useRouter();
-       console.log(data)
        function jumpArticle(aid){
            router.push({name:'article',params:{aid,page:1}})
        }
@@ -84,6 +86,11 @@ export default {
     }
     .p-tr:nth-of-type(2n){
         background-color: rgb(229, 240, 236);
+    }
+    .p-tr-none{
+        padding: 1em;
+        text-align: center;
+        background-color:white;
     }
 }
 </style>
