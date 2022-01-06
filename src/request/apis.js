@@ -71,3 +71,15 @@ export function release(pid,title,content){
         }
     })
 }
+//获取评论(带页数)
+export function getReplyByPage(aid,page){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE}getReplybypage/${aid}/${page}`
+    })
+}
+//获取当前帖子的回复数量
+export function getReplyNum(aid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE}getReplyNum/${aid}`
+    })
+}

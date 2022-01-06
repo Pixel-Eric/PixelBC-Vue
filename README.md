@@ -12,3 +12,7 @@
 2、完善PageTurn组件，添加pageUp、pageDown、jumpPage、getAllpage四个外置功能函数。
 3、App.vue 添加key来监视路由的刷新。
 4、修改Plate index.vue组件获取数据函数的位置(由created迁移到setup,但执行时间依旧在created)
+### version - 0.0.3 PHOTOSHOP 2022-1-6
+1、迁移部分API.
+2、添加一个新的hook，配合PageTurn组件进行使用
+3、修正部分BUG

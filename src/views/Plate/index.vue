@@ -42,6 +42,7 @@ import Location from "../../components/Universal/Location.vue"
 import { getSectionArticle,getSection,getArticleNum } from "../../request/apis"
 import { reactive,ref, toRefs } from "vue"
 import { useRouter } from "vue-router"
+import { usePage } from "../../hooks/page"
 export default {
     props:["pid","page"],
     setup(props){
@@ -66,29 +67,7 @@ export default {
         let artflag = ref(false);
         let pagefalg = ref(false);
         
-        //上一页的回调逻辑
-        function pageUp(){
-            console.log("调用")
-            if(parseInt(page)-1>0){
-                router.push({name:'Section',params:{pid,"page":parseInt(page)-1}});
-            }
-        }
-        //获取数据总页数
-        function getPage(page){
-            allpage.value = page;
-        }
-        //跳转到下一页
-        function pageDown(){
-            if((parseInt(page) + 1)<=allpage.value){
-                router.push({name:'Section',params:{pid,"page":parseInt(page)+1}});
-            }
-        }
-        //跳转任意页面
-        function jumpPage(jpage){
-            if(jpage>0&&jpage<=allpage.value){
-                router.push({name:'Section',params:{pid,page:jpage}});
-            }
-        }
+        let routeJump = usePage(router,allpage,page,'Section',{pid});
 
         //翻页工具配置信息
         let pageconfig = reactive({
@@ -100,8 +79,6 @@ export default {
             curpage:page
         })
         
-        
-
         //移动到页面底端
         function Jump(){
             window.scroll(0,999999999);
@@ -133,7 +110,7 @@ export default {
 
 
         return {Jump,...toRefs(config),topflag,artflag,pagefalg,pageconfig,pid,
-        pageUp,getPage,pageDown,jumpPage,allpage,getSectionArt,getSec,getArtNum}
+        ...routeJump,allpage,getSectionArt,getSec,getArtNum}
     },
     created(){
         this.getSectionArt(this.page);

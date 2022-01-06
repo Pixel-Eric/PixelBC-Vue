@@ -66,7 +66,11 @@ export default {
         //判断条数是否为整数
         let regx = /(?<before>\d+).(?<last>\d{1})/;
         //初始化组件显示的页数
-        if(parseInt(regx.exec(config.all/config.total)?.groups.last) < 5){
+        //保证除数不为零
+        let all = config.all?config.all:1;   //总条数
+        let total =config.total?config.total:1; //显示条数
+
+        if(parseInt(regx.exec(all/total)?.groups.last) < 5){
             config.page = Math.round(config.all/config.total)+1;
         }else{
             config.page = Math.round(config.all/config.total);

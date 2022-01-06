@@ -69,7 +69,6 @@ export default {
     name:'Owner',
     props:["config"],
     setup(props){
-        console.log(props.config)
         let config = props.config;
         config.rtime = dayjs(new Date(config.rtime)).format("YYYY-MM-DD")
         config.time = dayjs(new Date(config.time)).format("YYYY-MM-DD HH:mm")
