@@ -17,3 +17,5 @@
 2、添加一个新的hook，配合PageTurn组件进行使用
 3、修正部分BUG
 4、完成Locaiton组件的开发
+### version - 0.0.4 PHOTOSHOP 2022-1-6 last
+CSS预处理器由Less更换为Sass
