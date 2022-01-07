@@ -7,7 +7,8 @@
             <p>板块的宣传标语或自我介绍</p>
             <div class="shox-master">
                 <p>版主:论坛名称</p>
-                <p>最新动态:NUll</p>
+                <p v-if="!newart">最新动态:暂无</p>
+                <p v-if="newart" @click="jumpArt" class="newart-a">最新动态:{{title}}</p>
             </div>
         </div>
         <div class="shox-ico">
@@ -20,22 +21,42 @@
 </template>
 
 <script>
-import { reactive,toRefs } from "vue"
+import { reactive,toRefs,ref } from "vue"
 import { useRouter } from "vue-router"; 
+import { getNewArt } from "../../request/apis";
 export default {
     props:["config"],
      setup(props){
         let config = reactive(props.config);
-        const router = useRouter()
+        const router = useRouter();
+        let artinfo = reactive({
+            title:'null',
+            aid:-1
+        })
+        let newart = ref(false);
         function jump(){
             router.push({name:'Section',params:{pid:config.pid,page:1}});
         }
-        return {...toRefs(config),jump}
+        function jumpArt(){
+            router.push({name:'article',params:{aid:artinfo.aid,page:1}});
+        }
+        return {...toRefs(config),jump,...toRefs(artinfo),newart,jumpArt}
+    },
+    created(){
+        //获取当前版块的最新文章信息
+        getNewArt(this.pid).then(res=>{
+            console.log(res.data)
+            if(res.data?.Success){
+                this.title = res.data.Success.title;
+                this.aid = res.data.Success.aid;
+                this.newart = true;
+            }
+        });
     }
 }
 </script>
 
-<style lang='less' scoped>
+<style lang='scss' scoped>
 .shox{
     position: relative;
     width: 100%;
@@ -95,5 +116,10 @@ export default {
 }
 .line{
     height: .3em;
+}
+.newart-a{
+    &:hover{
+        text-decoration: underline;
+    }
 }
 </style>

@@ -20,7 +20,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    // 登录框样式
+//全局混入样式
+@mixin content-center-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin content-center-col {
+    @include content-center-row;
+    flex-direction: column;
+}
+//input框提示文字的大小
+$f-s-input:1.3em;
+// 登录框样式
 .loginbox {
     width: 45em;
     height: 25em;
@@ -30,10 +43,7 @@ export default {
     .box-left {
         width: 15em;
         background-image: url(./images/loginleft.gif);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        @include content-center-col;
         p {
             font-family:'像素脑洞';
             color: white;
@@ -46,12 +56,15 @@ export default {
             margin-bottom: .3em;
         }
         p:nth-of-type(3) {
-            font-size: 1.3em;
+            font-size: $f-s-input;
             margin-top: .3em;
         }
     }
     .box-right {
         flex-grow: 1;
+        display: flex;
+        height: 100%;
+        justify-content: center;
         text-align: center;
     }
 }

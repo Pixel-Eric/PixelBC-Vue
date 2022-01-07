@@ -7,7 +7,7 @@
           <p class="p-td">最后回复</p>
       </div>
       <div class="p-tr" v-for="d in data" :key="d">
-          <p class="p-td" @click="jumpArticle(d.aid)">{{d.title}}</p>
+          <p class="p-td title-a" @click="jumpArticle(d.aid)">{{d.title}}</p>
           <p class="p-td">{{d.name}}</p>
           <p class="p-td">null</p>
           <p class="p-td">2021-10</p>
@@ -35,7 +35,13 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
+.title-a{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}
 .plate-table{
     width: 100%;
     margin-top: 1em;

@@ -44,7 +44,10 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
+p:hover{
+    text-decoration: underline;
+}
 .Location{
     display: flex;
     height: 2em;

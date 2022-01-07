@@ -1,18 +1,18 @@
 <template>
   <div class="login-form">
-      <div class="uname">
+      <div class="register">
+          <p>没有账号?点击注册</p>
+      </div>
+      <div class="uname login-box">
           <label for="uname">CardID:</label>
           <input id="uname" v-model="uname" type="text" />
       </div>
-      <div class="pwd">
+      <div class="pwd login-box">
           <label for="pwd">PassWord:</label>
           <input id="pwd" type="password" v-model="upwd" />
       </div>
-      <div class="btn" @click="ulogin">
-          <p>登录</p>
-      </div>
-      <div class="error">
-          错误信息提示
+      <div class="btn" >
+          <p @click="ulogin">登录</p>
       </div>
   </div>
 </template>
@@ -62,38 +62,63 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.login-form{
+<style lang="scss" scoped>
+//全局混入样式
+@mixin content-center-row {
     display: flex;
-    flex-direction: column;
-    font-family: '像素脑洞';
-    font-size: 1.3em;
     justify-content: center;
+    align-items: center;
+}
+
+@mixin content-center-col {
+    @include content-center-row;
+    flex-direction: column;
+}
+.login-form{
+    @include content-center-col;
+    font: {
+        family: '像素脑洞';
+        size: 1.3em;
+    }
+    color: white;
     height: 100%;
+    padding: 1em;
     &>div{
+        width: 100%;
         margin: .5em 0;
         label{
+            margin-left: 1.2em;
             text-align: right;
         }
     }
     input{
         border: none;
         outline: none;
-        // border-bottom: 1px solid black;
         height: 1.3em;
         font-size: 1.1em;
+        color: white;
         width: 9em;
         font-family: '像素脑洞';
         margin-left: .5em;
+        background-color: rgba(0, 0, 0, 0);
     }
     .uname,.pwd{
         display: flex;
-        justify-content: right;
-        padding-right: 20%;
+        justify-content: center;
+        align-items: center;
+        // background-color: red;
+        height: 70px;
+        width: 100%;
+    }
+    .login-box{
+        padding: .3em;
+        background-image: url(./images/登录框素材1.png);
+        background-size: 100% 70px; 
     }
     .btn{
         display: flex;
         justify-content: center;
+        color: #333;
         cursor: pointer;
         p{
             width: 3em;
@@ -104,7 +129,22 @@ export default {
         }
     }
     .error{
-        color: red;
+        text-align: right;
+        color: rgb(110, 44, 44);
+        font-size: .8em;
+    }
+    .register{
+        text-align: right;
+        color: #333;
+        p {
+            cursor: pointer;
+            font: {
+                size: .7em;
+            }
+            &:hover{
+                text-decoration: underline;
+            }
+        }
     }
 
 }

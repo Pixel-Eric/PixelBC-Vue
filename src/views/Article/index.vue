@@ -18,7 +18,7 @@
         </PageTurn>
     </div>
     <div class="article">
-        <ArticleTop v-if="artflag" :config="data.Article" />
+        <ArticleTop v-if="artflag" :config="data.Article" :other="data.Other" :isMaster="isMaster" :all="all" />
         <!-- 帖子发布者 -->
         <Owner v-if="artflag&&page==1" :config="data" />
         <!-- 帖子的评论 -->
@@ -47,11 +47,12 @@ import ReplyBox from "../../components/Universal/ReplyBox.vue"
 import PageTurn from "../../components/Universal/PageTurn.vue"
 import ArticleTop from "../../components/Article/ArticleTop.vue"
 import Location from "../../components/Universal/Location.vue"
-import { getArticle,getReplyByPage,getReplyNum } from "../../request/apis"
+import { getArticle,getReplyByPage,getReplyNum,getReplyNumNone,getloginid } from "../../request/apis"
 import { reactive,toRefs,ref } from "vue"
 import Reply from "../../components/Article/Reply.vue"
 import { usePage } from "../../hooks/page"
 import { useRouter } from "vue-router"
+import { getSession2 } from '../../session'
 export default {
     name:'ArticleIndex',
     props:['aid','page'],
@@ -61,8 +62,11 @@ export default {
         let config = reactive({
             aid:props.aid,
             page:props.page,
+            uid:-1,
             data:{},
-            repdata:{}
+            repdata:{},
+            all:0,
+            isMaster:false
         })
         let flag = reactive({
             artflag:false,
@@ -91,8 +95,18 @@ export default {
             this.data = res.data;
             this.pid = res.data.Article.aPit;
             this.aname = res.data.Article.aTitle;
-            console.log(res.data.Article.aTitle)
-            this.artflag = true;
+            this.uid = res.data.Article.aUid;
+            //获取用户是否登录
+            if(getSession2()!=null&&this.page==1){
+                getloginid().then(res=>{
+                    if(res.data == this.uid){
+                        this.isMaster = true;
+                        this.artflag = true;
+                    }
+                })
+            }else{
+                this.artflag = true;
+            }
         })
         //获取文章的回复信息
         getReplyByPage(this.aid,this.page).then(res=>{
@@ -100,10 +114,14 @@ export default {
             this.pageconfig.all = res.data.length;
             this.repflag =true;
         })
-        //获取当前文章的总回复数量
+        //获取当前文章的总回复数量(分页)
         getReplyNum(this.aid).then(res=>{
             this.pageconfig.all = res.data.Success;
-            this.numflag = true;
+            //获取文章的总回复数量(不分页)
+            getReplyNumNone(this.aid).then(res=>{
+                this.all = res.data;
+                this.numflag = true;
+            })
         });
     },
     components:{ Top, Owner, ReplyBox, PageTurn, ArticleTop, Location, Reply }

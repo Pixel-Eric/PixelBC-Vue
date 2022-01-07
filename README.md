@@ -19,3 +19,8 @@
 4、完成Locaiton组件的开发
 ### version - 0.0.4 PHOTOSHOP 2022-1-6 last
 CSS预处理器由Less更换为Sass
+### version - 0.0.5 PHOTOSHOP 2022-1-7
+版块预览添加了最新动态的获取
+帖子增加了点击量显示和回复显示
+添加了部分新的API
+添加了帖子的编辑功能(只添加API和编辑器，功能还未开发)

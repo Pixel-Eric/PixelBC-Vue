@@ -77,15 +77,41 @@ export function getReplyByPage(aid,page){
         url:`${process.env.VUE_APP_BASE_ARTICLE}getReplybypage/${aid}/${page}`
     })
 }
-//获取当前帖子的回复数量
+//获取当前帖子的回复数量(带分页)
 export function getReplyNum(aid){
     return request({
         url:`${process.env.VUE_APP_BASE_ARTICLE}getReplyNum/${aid}`
+    })
+}
+export function getReplyNumNone(aid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE}getReplyn/${aid}`
     })
 }
 //获取当前版块的名称
 export function getPalteName(pid){
     return request({
         url:`${process.env.VUE_APP_BASE_PLATE}getpaltename/${pid}`
+    })
+}
+//获取当前版块最新的帖子信息
+export function getNewArt(pid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE}getnewart/${pid}`
+    })
+}
+//获取用户ID
+export function getloginid(){
+    return request({
+        url:`${process.env.VUE_APP_BASE_USER}getloginid`
+    })
+}
+//编辑帖子
+export function editart(pid,title,content){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE}edit`,
+        params:{
+            pid,title,content
+        }
     })
 }
