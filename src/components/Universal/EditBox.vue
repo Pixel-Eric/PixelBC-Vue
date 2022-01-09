@@ -1,13 +1,18 @@
 <template>
-    <div class="container">
-      <div class="head">
-          <p v-if="!islogin" @click="send">发帖</p>
-      </div>
-      <div class="content">
-          <input type="text" v-model="title" placeholder="请输入标题">
-          <Editor id="tinymce" v-model="tinymceHtml" :init="init" />
-      </div>
-  </div>
+    <div v-if="show" class="edit">
+        <div class="container">
+            <div class="open" @click="close" >
+                <p>关闭</p>
+            </div>
+            <div class="head">
+                <p @click="send">保存</p>
+            </div>
+            <div class="content">
+                <input type="text" v-model="title" placeholder="请输入标题">
+                <Editor id="tinymce1" v-model="tinymceHtml" :init="init" />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -22,17 +27,19 @@ import "tinymce/plugins/lists";
 import "tinymce/plugins/wordcount";
 import "tinymce/plugins/hr"
 import "tinymce/plugins/emoticons"
-import { reactiv,toRefs } from 'vue';
+import { reactive,toRefs } from 'vue';
+import { getArticleById,editart } from '../../request/apis';
 export default {
-    setup(){
-                //初始化富文本
+    props:["aid"],
+    emits:["close"],
+    setup(props,context){
+        //初始化富文本
         let config = reactive({
             //文章内容
             tinymceHtml: '',
             //文章标题
             title:'',
-            //标识用户是否登录(默认未登录)
-            islogin:false,
+            show:false,
             init: {
                 selector: 'myeditablediv',
                 language_url: '/js/zh_CN.js',
@@ -52,11 +59,90 @@ export default {
                 fixed_toolbar_container:'mytoolbar'
             }
         })
-        return {...toRefs(config)}
+        //获取当前帖子的信息内容
+        async function getdata(){
+            let res = await getArticleById(props.aid);
+            config.title = res.data.title;
+            config.tinymceHtml = res.data.content;
+            config.show = true;
+        }
+        async function send(){
+            let res = await editart(props.aid,config.title,config.tinymceHtml);
+            if(res.data?.Success){
+                console.log("保存成功");
+            }else{
+                console.error(res.data.Error);
+            }
+            
+        }
+        function close(){
+            context.emit("close");
+        }
+        return {...toRefs(config),getdata,send,close}
+    },
+    components:{Editor},
+    created(){
+        this.getdata();
     }
 }
 </script>
 
 <style lang='scss' scoped>
-
+.open{
+    position: absolute;right: -3em;top: -2.5em;
+    color: white;
+}
+.edit{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;left: 0;right: 0;bottom: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.459);
+}
+.container{
+    position: relative;
+    margin-top: 1em;
+    background-color: white;
+    width: 60%;
+    .head{
+        background: #2497c5;
+        height: 1em;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        p{
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
+    div{
+        padding: 1em;
+        input{
+            border: none;
+            outline: none;
+            border-bottom: solid rgb(204, 204, 204);
+            margin-bottom: 1em;
+            padding: .3em;
+            font-size: 1.3em;
+        }
+    }
+}
+.login-none{
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 1.5em;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.589);
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: white;
+}
 </style>

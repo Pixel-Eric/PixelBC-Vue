@@ -6,26 +6,34 @@
       </div>
       <div class="art-top-right">
           <p>{{aTitle}}</p>
-          <p v-if="isMaster" class="edit">编辑</p>
+          
+          <p v-if="isMaster" @click="change" class="edit">编辑</p>
       </div>
   </div>
+    <teleport to="body">
+        <EditBox @close="change" :aid="aid" v-if="open"/>
+    </teleport>
 </template>
 
 <script>
-import { reactive,toRefs } from "vue"
-
+import { reactive,toRefs,ref } from "vue"
+import EditBox from '../Universal/EditBox.vue';
 export default {
     props:{config:Object,other:Object,all:Number,isMaster:Boolean},
     setup(props){
+        let open = ref(false);
         let config = reactive({
             ...props.config,
             ...props.other,
             all:props.all,
             isMaster:props.isMaster
         })
-        
-        return {...toRefs(config)}
-    }
+        function change(){
+            open.value = !open.value;
+        }
+        return {...toRefs(config),change,open}
+    },
+    components:{EditBox}
 }
 </script>
 

@@ -8,6 +8,7 @@ import { initAll } from './init'
 import {useRouter} from 'vue-router'
 const utop = defineAsyncComponent(()=>import('@/components/Universal/Top.vue'))
 const bottom = defineAsyncComponent(()=>import('@/components/Home/bottom.vue'))
+import EditBoxVue from './components/Universal/EditBox.vue'
 export default{
     setup() {
         initAll();

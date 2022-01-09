@@ -47,6 +47,9 @@
                 <p>1楼</p>
             </div>
             <div class="owner-right-bottom">
+                <div class="etime" v-if="isEdit">
+                    <p>------------------------该帖子最后编辑与{{Article.aLastEditime}}------------------------</p>
+                </div>
                 <!-- 帖子的内容区域 -->
                 <div class="content" v-html="Article.aContent">
                     
@@ -60,11 +63,14 @@
                 </div>
             </div>
       </div>
+
   </div>
+
 </template>
 
 <script>
 import dayjs from 'dayjs'
+import { computed } from 'vue';
 export default {
     name:'Owner',
     props:["config"],
@@ -72,7 +78,9 @@ export default {
         let config = props.config;
         config.User.rtime = dayjs(new Date(config.User.rtime)).format("YYYY-MM-DD")
         config.Article.aPtime = dayjs(new Date(config.Article.aPtime)).format("YYYY-MM-DD HH:mm")
-        return {...config}
+        config.Article.aLastEditime = dayjs(new Date(config.Article.aLastEditime)).format("YYYY-MM-DD HH:mm");
+        let isEdit = computed(()=>config.Article.aLastEditime!=null);
+        return {...config,isEdit}
     }
 }
 </script>
@@ -173,6 +181,14 @@ export default {
         }
         .owner-right-bottom{
             flex-grow: 1;
+            .etime{
+                padding: .5em;
+                text-align: center;
+                p{
+                    color: #999;
+                    font-size: .6em;
+                }
+            }
             .content{
                 width: 90%;
                 min-height: 60%;

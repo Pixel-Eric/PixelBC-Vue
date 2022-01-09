@@ -107,11 +107,12 @@ export function getloginid(){
     })
 }
 //编辑帖子
-export function editart(pid,title,content){
+export function editart(aid,title,content){
     return request({
         url:`${process.env.VUE_APP_BASE_ARTICLE}edit`,
+        method:'post',
         params:{
-            pid,title,content
+            aid,title,content
         }
     })
 }
@@ -125,5 +126,11 @@ export function getAllNewArt(){
 export function getHotArt(){
     return request({
         url:`${process.env.VUE_APP_BASE_ARTICLE_HOT}getHotArt`
+    })
+}
+//获取当前要编辑的帖子的信息
+export function getArticleById(aid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE}getArticleById/${aid}`
     })
 }
