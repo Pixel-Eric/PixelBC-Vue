@@ -10,7 +10,7 @@
         </div>
         <div class="p-fun">
             <p>关注版块</p>
-            <p @click="change()">{{text}}</p>
+            <p @click="change(true)">{{text}}</p>
         </div>
       </div>
       <div class="p-img" v-html="pNotice">
@@ -21,26 +21,25 @@
 
 <script>
 import {reactive,toRefs} from 'vue'
+import { getSectionStatus,setSectionStatus } from '../../session';
 export default {
     props:["config"],
     setup(props){
-        let info = reactive({
-            height:'28em',
-            text:'收缩',
-            borderRadius:'.5em .5em 0 0'
-        })
+
+        let info = reactive({height:'',borderRadius:'',text:''});
         let config = props.config;
-        function change(){
-            if(info.height == '28em'){
-                info.height = '3em';
-                info.text = '展开';
-                info.borderRadius='.5em .5em 0 0';
-            }else{
-                info.height = '28em';
-                info.text = '收缩'
-                info.borderRadius='.5em';
+        //改变简介栏状态
+        function change(option){
+            let f = getSectionStatus(props.config.pid);
+            if(option){
+                setSectionStatus(props.config.pid,!f);
             }
+            f = getSectionStatus(props.config.pid);
+            info.height = f ? '3em' : '28em';
+            info.borderRadius = f ? '.5em' : '.5em .5em 0 0' ;
+            info.text = f ? '展开' : '收缩' ;
         }
+        change(false);
         return {...toRefs(info),change,...toRefs(config)}
     }
 }

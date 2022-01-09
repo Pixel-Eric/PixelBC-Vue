@@ -1,3 +1,5 @@
+//这个模块用于操作全部的session
+
 export function setSession(obj){
     let currSession = getSession();
     currSession = Object.assign(currSession,obj);
@@ -18,4 +20,28 @@ export function getSession2(){
 }
 export function getToken(){
    return getSession()?.token;
+}
+//----存储某一个版块简介的状态-----
+//获取section状态实例
+export function getSection(){
+    let sectionSession = JSON.parse(window.sessionStorage.getItem('section'));
+    if(sectionSession!=null){
+        return sectionSession;
+    }
+    return {};
+}
+//获取当前版块状态
+export function getSectionStatus(pid){
+    let sectionSession = getSection();
+    //检测是否存储该状态
+    if(Object.hasOwnProperty.call(sectionSession,pid)){
+        return sectionSession[pid];
+    }
+    return false;
+}
+//设置当前版块简介的展开状态
+export function setSectionStatus(pid,option){
+    let sectionSession = getSection();
+    sectionSession[pid] = option;
+    window.sessionStorage.setItem('section',JSON.stringify(sectionSession));
 }
