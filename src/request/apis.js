@@ -115,3 +115,15 @@ export function editart(pid,title,content){
         }
     })
 }
+//获取最新的帖子
+export function getAllNewArt(){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE_HOT}getNewArt`
+    })
+}
+//获取热门的帖子
+export function getHotArt(){
+    return request({
+        url:`${process.env.VUE_APP_BASE_ARTICLE_HOT}getHotArt`
+    })
+}

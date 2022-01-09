@@ -2,7 +2,7 @@
   <div class="all">
     <Top />
     <div class="cur">
-        <Location :pid="pid" :aname="aname" />
+        <Location v-if="artflag" :pid="pid" :aname="aname" />
     </div>
     <div class="page-btn">
         <PageTurn 

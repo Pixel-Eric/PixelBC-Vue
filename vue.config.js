@@ -17,6 +17,9 @@ module.exports={
             //文章服务代理
             'api/article':{
                 target:'http://localhost:7171/'
+            },
+            'api/ranking':{
+                target:'http://localhost:7171/'
             }
             
         }

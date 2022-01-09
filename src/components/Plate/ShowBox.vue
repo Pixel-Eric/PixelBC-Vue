@@ -45,7 +45,6 @@ export default {
     created(){
         //获取当前版块的最新文章信息
         getNewArt(this.pid).then(res=>{
-            console.log(res.data)
             if(res.data?.Success){
                 this.title = res.data.Success.title;
                 this.aid = res.data.Success.aid;
