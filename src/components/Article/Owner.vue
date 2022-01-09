@@ -78,7 +78,9 @@ export default {
         let config = props.config;
         config.User.rtime = dayjs(new Date(config.User.rtime)).format("YYYY-MM-DD")
         config.Article.aPtime = dayjs(new Date(config.Article.aPtime)).format("YYYY-MM-DD HH:mm")
-        config.Article.aLastEditime = dayjs(new Date(config.Article.aLastEditime)).format("YYYY-MM-DD HH:mm");
+        if(config.Article.aLastEditime!=null){
+            config.Article.aLastEditime = dayjs(new Date(config.Article.aLastEditime)).format("YYYY-MM-DD HH:mm");
+        }
         let isEdit = computed(()=>config.Article.aLastEditime!=null);
         return {...config,isEdit}
     }
