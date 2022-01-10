@@ -18,6 +18,7 @@
 <script>
 import { reactive,toRefs,ref } from "vue"
 import EditBox from '../Universal/EditBox.vue';
+import '@/assets/iconfont/iconfont.js'
 export default {
     props:{config:Object,other:Object,all:Number,isMaster:Boolean},
     setup(props){

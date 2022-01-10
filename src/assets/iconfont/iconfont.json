@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7150082",
+      "name": "热门活动",
+      "font_class": "remenhuodong",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "8340675",
+      "name": "fire",
+      "font_class": "fire",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "12683203",
+      "name": "精品",
+      "font_class": "jingpin",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "22757843",
+      "name": "精品文章和名师视频的置顶",
+      "font_class": "jingpinwenzhanghemingshishipindezhiding",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "16570410",
+      "name": "文章",
+      "font_class": "wenzhang",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
       "icon_id": "3187395",
       "name": "消息",
       "font_class": "xiaoxi",
