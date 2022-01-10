@@ -140,3 +140,11 @@ export function getPlateOtherInfo(pid){
         url:`${process.env.VUE_APP_BASE_PLATE}getplateotherinfo/${pid}`
     })
 }
+//编辑版块
+export function editSection(pid,content,intro,name,icon){
+    return request({
+        url:`${process.env.VUE_APP_BASE_PLATE}/edit`,
+        method:'post',
+        params:{content,intro,name,icon,pid}
+    })
+}

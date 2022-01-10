@@ -1,9 +1,9 @@
 <template>
   <div class="Location">
       <p>当前位置:</p>
-      <p @click="gohome">广场</p>
-      <p @click="gosection">{{sname}}</p>
-      <p v-if="artfalg">{{aname}}</p>
+      <p class="link" @click="gohome">广场</p>
+      <p class="link"  @click="gosection">{{sname}}</p>
+      <p class="link"  v-if="artfalg">{{aname}}</p>
   </div>
 </template>
 
@@ -45,9 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p:hover{
-    text-decoration: underline;
-}
+
 .Location{
     display: flex;
     height: 2em;
@@ -56,8 +54,11 @@ p:hover{
     align-items: center;
     padding-left: 1em;
     border-radius: .3em;
-    p{
+    .link{
         cursor: pointer;
+        &:hover{
+            text-decoration: underline;
+        }
     }
     &>p:nth-of-type(n+3)::before{
         content: ">";

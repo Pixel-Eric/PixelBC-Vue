@@ -40,7 +40,7 @@ import Top from "../../components/Universal/Top.vue"
 import ContentBox from "../../components/Universal/ContentBox.vue"
 import Location from "../../components/Universal/Location.vue"
 import { getSectionArticle,getPlateOtherInfo,getArticleNum } from "../../request/apis"
-import { reactive,ref, toRefs } from "vue"
+import { reactive,ref, toRefs,provide } from "vue"
 import { useRouter } from "vue-router"
 import { usePage } from "../../hooks/page"
 export default {
@@ -49,7 +49,7 @@ export default {
         window.scroll(0,0);
 
         const router = useRouter();
-
+        provide("pid",props.pid);
         //板块信息和帖子信息
         let pid = props.pid;
         let page = props.page;

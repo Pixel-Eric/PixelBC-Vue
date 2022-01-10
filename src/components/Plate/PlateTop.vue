@@ -10,6 +10,7 @@
             <p>版主:{{Mname}}</p>
         </div>
         <div class="p-fun">
+            <p @click="close" v-if="editfalg">编辑</p>
             <p>关注版块</p>
             <p @click="change(true)">{{text}}</p>
         </div>
@@ -18,17 +19,24 @@
           
       </div>
   </div>
+  <teleport to='body' >
+      <SectionEditBox v-if="open" @close="close" />
+  </teleport>
 </template>
 
 <script>
-import {reactive,toRefs} from 'vue'
-import { getSectionStatus,setSectionStatus } from '../../session';
+import {reactive,toRefs,ref} from 'vue'
+import { getloginid } from '../../request/apis';
+import { getSectionStatus,setSectionStatus,getSession2 } from '../../session';
+import SectionEditBox from '../Universal/SectionEditBox.vue';
 export default {
     props:["config"],
     setup(props){
         console.log(props.config)
         let info = reactive({height:'',borderRadius:'',text:''});
         let config = props.config;
+        let editfalg = ref(false);
+        let open = ref(false);
         //改变简介栏状态
         function change(option){
             let f = getSectionStatus(props.config.pid);
@@ -40,9 +48,26 @@ export default {
             info.borderRadius = f ? '.5em' : '.5em .5em 0 0' ;
             info.text = f ? '展开' : '收缩' ;
         }
+        //获取用户的登录ID
+        async function getlogin(){
+            if(getSession2()!=null){
+               let uid = await getloginid();
+               console.log(uid.data)
+               if(uid.data == config.Mid){
+                   editfalg.value=true;
+               }
+            }
+        }
+        function close(){
+            open.value = !open.value;
+        }
         change(false);
-        return {...toRefs(info),change,...toRefs(config)}
-    }
+        return {...toRefs(info),change,...toRefs(config),getlogin,editfalg,open,close}
+    },
+    created(){
+        this.getlogin();
+    },
+    components:{SectionEditBox}
 }
 </script>
 
@@ -99,6 +124,7 @@ export default {
         }
     }
     .p-img{
+        overflow: scroll;
         flex-grow: 1;
         margin: .5em;
         display: flex;

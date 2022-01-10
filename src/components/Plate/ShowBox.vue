@@ -4,7 +4,7 @@
             <p>{{pName}}</p>
         </div>
         <div class="shox-content">
-            <p>板块的宣传标语或自我介绍</p>
+            <p>{{pIntro}}</p>
             <div class="shox-master">
                 <p>版主:论坛名称</p>
                 <p v-if="!newart">最新动态:暂无</p>
