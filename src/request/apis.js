@@ -134,3 +134,9 @@ export function getArticleById(aid){
         url:`${process.env.VUE_APP_BASE_ARTICLE}getArticleById/${aid}`
     })
 }
+//获取版块其他数据
+export function getPlateOtherInfo(pid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_PLATE}getplateotherinfo/${pid}`
+    })
+}

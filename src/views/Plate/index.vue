@@ -39,7 +39,7 @@ import PageTurn from "../../components/Universal/PageTurn.vue"
 import Top from "../../components/Universal/Top.vue"
 import ContentBox from "../../components/Universal/ContentBox.vue"
 import Location from "../../components/Universal/Location.vue"
-import { getSectionArticle,getSection,getArticleNum } from "../../request/apis"
+import { getSectionArticle,getPlateOtherInfo,getArticleNum } from "../../request/apis"
 import { reactive,ref, toRefs } from "vue"
 import { useRouter } from "vue-router"
 import { usePage } from "../../hooks/page"
@@ -93,9 +93,14 @@ export default {
         }
         function getSec(){
             //获取板块数据
-            getSection(pid).then(res=>{
-                config.info = res.data;
-                topflag.value = true;
+            getPlateOtherInfo(pid).then(res=>{
+                if(res.data?.Success){
+                    config.info = res.data.Success;
+                    topflag.value = true;
+                }else{
+                    console.error(res.data.Error);
+                }
+                
             })
         }
 

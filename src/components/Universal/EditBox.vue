@@ -69,7 +69,10 @@ export default {
         async function send(){
             let res = await editart(props.aid,config.title,config.tinymceHtml);
             if(res.data?.Success){
-                console.log("保存成功");
+                alert("保存成功");
+                window.scroll(0,0);
+                location.reload();
+
             }else{
                 console.error(res.data.Error);
             }

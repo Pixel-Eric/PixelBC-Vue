@@ -35,7 +35,6 @@ export default {
     setup(props){
         //获取路由组件
         const router = useRouter();
-        
         //初始化富文本
         let config = reactive({
             //文章内容
@@ -78,7 +77,9 @@ export default {
                         release(props.pid,config.title,config.tinymceHtml).then(res=>{
                             if(res.data?.Success){
                                 alert(res.data.Success);
-                                router.push({name:"plate",params:{pid:props.pid,page:props.page}});
+                                window.scroll(0,0);
+                                location.reload();
+                                // router.push({name:"plate",params:{pid:props.pid,page:props.page}});
                             }else{
                                 console.error(res.data.Error);
                             }

@@ -2,18 +2,19 @@
   <div class="plate-top " :style="{height,borderRadius}">
       <div class="p-header">
         <div class="p-title">
-            <p>{{pName}}</p>
-            <p>今日 0</p>
-            <p>主题 0</p>
-            <p>排名 0</p>
-            <p>版主:XXXX</p>
+            <p>{{Sname}}</p>
+            <p>今日 {{Today}}</p>
+            <p>主题 {{AllNum}}</p>
+            <p>排名 {{Rank}}</p>
+            <p>热度 {{Hot}}</p>
+            <p>版主:{{Mname}}</p>
         </div>
         <div class="p-fun">
             <p>关注版块</p>
             <p @click="change(true)">{{text}}</p>
         </div>
       </div>
-      <div class="p-img" v-html="pNotice">
+      <div class="p-img" v-html="Notice">
           
       </div>
   </div>
@@ -25,7 +26,7 @@ import { getSectionStatus,setSectionStatus } from '../../session';
 export default {
     props:["config"],
     setup(props){
-
+        console.log(props.config)
         let info = reactive({height:'',borderRadius:'',text:''});
         let config = props.config;
         //改变简介栏状态

@@ -57,6 +57,8 @@ export default {
                 reply(props.aid,config.tinymceHtml).then(res=>{
                     if(res.data?.Success){
                         alert(res.data.Success);
+                        window.scroll(0,0);
+                        location.reload();
                     }else{
                         console.error(res.data.Error);
                     }
