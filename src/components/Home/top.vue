@@ -1,8 +1,8 @@
 <template>
     <div class="line"></div>
     <transition name="top">
-          <div class="home-top" v-if="show">
-            <article>
+          <div class="home-top" @click="jump" v-if="show">
+            <article :style="{backgroundImage:`url(${info.cIcon})`}">
             </article>
           </div>
     </transition>
@@ -18,10 +18,13 @@
 </template>
 
 <script>
-import { reactive,ref } from 'vue'
+import { ref } from 'vue'
 import topNavVue from './topNav.vue'
+import { getHomeCur } from '../../request/apis';
+import { useRouter } from 'vue-router';
 export default {
     setup(){
+        let router = useRouter();
         let index = {
             title:'首页',
             isNav:false,
@@ -45,11 +48,20 @@ export default {
             title:'个人空间',
             isNav:false
         }
+        let info = ref('');
         let show = ref(false);
-        setTimeout(()=>{
+        async function load(){
+            let res = await getHomeCur();
+            info.value = res.data;
             show.value = true;
-        },2000)
-        return {index,bk,pb,activity,personl,show}
+        }
+        function jump(){
+            router.push({name:'article',params:{aid:info.value.cAid,page:1}})
+        }
+        return {index,bk,pb,activity,personl,show,info,load,jump}
+    },
+    created(){
+        this.load();
     },
     components:{topNavVue}
 }
@@ -65,8 +77,6 @@ export default {
         position: absolute;
         cursor: pointer;
         top: 0;left: 0;right: 0;bottom: 0;
-        background-image: url(./images/topbg211229.jpeg);
-        
     }
 }
 .top-enter-active{

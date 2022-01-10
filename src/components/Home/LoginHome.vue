@@ -8,7 +8,7 @@
       </div>
       <div class="login-bottom" v-if="!show">
           <ul>
-              <li>用户注册</li>
+              <li @click="jumpRegister">用户注册</li>
               <li>找回密码</li>
           </ul>
       </div>
@@ -76,8 +76,12 @@ export default {
                 user.getName = curUser.name;
                 user.level = curUser.rank;
         }
+        //跳转到注册
+        function jumpRegister(){
+            router.push({name:'Register'});
+        }
         return {
-            ...toRefs(user),jumpLogin
+            ...toRefs(user),jumpLogin,jumpRegister
         }
     }
 }

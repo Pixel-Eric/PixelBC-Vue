@@ -18,7 +18,8 @@ export default{
 }
 </script>
 
-<style lang="less">
+<style lang="scss">
+
 .box-s{
     box-shadow: 5px 5px 15px rgb(146, 145, 145);
 }

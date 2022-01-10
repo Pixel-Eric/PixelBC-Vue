@@ -1,10 +1,16 @@
 <template>
   <div class="container">
       <div class="head">
-          <p @click="send">回复</p>
+          <p v-if="!islogin" @click="send">回复</p>
       </div>
       <div class="content">
-          <Editor id="tinymce" v-model="tinymceHtml" :init="init" />
+        <div class="cbox">
+            <div class="login-none" v-if="islogin">
+                <p>请先登录</p>
+                <router-link class="login" to="/login" >点击此处登录</router-link>
+            </div>
+            <Editor id="tinymce" v-model="tinymceHtml" :init="init" />
+        </div>
       </div>
   </div>
 </template>
@@ -30,6 +36,7 @@ export default {
         //初始化富文本
         let config = reactive({
             tinymceHtml: '',
+            islogin:false,
             init: {
                 selector: 'myeditablediv',
                 language_url: '/js/zh_CN.js',
@@ -49,6 +56,12 @@ export default {
                 fixed_toolbar_container:'mytoolbar'
             }
         })
+        //检测是否已经登录账号
+        if(getSession2()==null){
+            //还没有登录账号
+            config.islogin = true;
+            config.init.placeholder = '';
+        }
         //回复函数
         function send(){
             if(getSession2()!=null){
@@ -102,5 +115,31 @@ export default {
             font-size: 1.3em;
         }
     }
+}
+.cbox{
+    position: relative;
+}
+.login{
+    text-decoration: none;
+    color: #2497c5;
+    margin-left: 1em;
+    &::before{
+        color: #333;
+        content: "|";
+        margin-right: 1em;
+    }
+}
+.login-none{
+    position: absolute;
+    display: flex;
+    left: .75em;
+    top: .5em;
+    bottom: .7em;
+    right: 18em;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: #333;
 }
 </style>

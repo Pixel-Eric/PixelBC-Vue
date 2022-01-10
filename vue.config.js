@@ -20,8 +20,11 @@ module.exports={
             },
             'api/ranking':{
                 target:'http://localhost:7171/'
+            },
+            //首页服务代理
+            'api/home':{
+                target:'http://localhost:2048/'
             }
-            
         }
     }
 }

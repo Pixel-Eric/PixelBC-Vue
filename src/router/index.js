@@ -33,8 +33,14 @@ const plate = {
     component:()=>import('../views/Plate')
 }
 
+const register = {
+    path:'/register',
+    name:'Register',
+    component:()=>import('../views/Register')
+}
+
 const routes = [
-    app,home,login,article,plate
+    app,home,login,article,plate,register
 ]
 
 const router = createRouter({

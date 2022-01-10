@@ -143,8 +143,14 @@ export function getPlateOtherInfo(pid){
 //编辑版块
 export function editSection(pid,content,intro,name,icon){
     return request({
-        url:`${process.env.VUE_APP_BASE_PLATE}/edit`,
+        url:`${process.env.VUE_APP_BASE_PLATE}edit`,
         method:'post',
         params:{content,intro,name,icon,pid}
+    })
+}
+//获取窗帘信息
+export function getHomeCur(){
+    return request({
+        url:`${process.env.VUE_APP_BASE_HOME}get`,
     })
 }
