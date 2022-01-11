@@ -32,6 +32,11 @@ const plate = {
     props:true,
     component:()=>import('../views/Plate')
 }
+const person = {
+    path:'/person',
+    name:'Person',
+    component:()=>import('../views/Person')
+}
 
 const register = {
     path:'/register',
@@ -40,7 +45,7 @@ const register = {
 }
 
 const routes = [
-    app,home,login,article,plate,register
+    app,home,login,article,plate,register,person
 ]
 
 const router = createRouter({

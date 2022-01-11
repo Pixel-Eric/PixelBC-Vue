@@ -57,7 +57,7 @@ export default {
     top: 100%;
     left: 0;
     min-width: 100%;
-    
+    z-index: 10;
     display: none;
     p{
         padding: 1em ;

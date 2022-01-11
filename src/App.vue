@@ -1,20 +1,19 @@
 <template>
-    <router-view :key="$route.fullPath" />
+    <router-view  :key="$route.fullPath" />
     <bottom />
+    <MsgLeft />
 </template>
 <script>
-import {defineAsyncComponent,watch} from 'vue'
+import {defineAsyncComponent} from 'vue'
 import { initAll } from './init'
-import {useRouter} from 'vue-router'
+import MsgLeft from './components/Home/MsgLeft.vue'
 const utop = defineAsyncComponent(()=>import('@/components/Universal/Top.vue'))
 const bottom = defineAsyncComponent(()=>import('@/components/Home/bottom.vue'))
-import EditBoxVue from './components/Universal/EditBox.vue'
 export default{
     setup() {
         initAll();
-        const router = useRouter();
     },
-    components:{top,bottom,utop}
+    components:{top,bottom,utop,MsgLeft}
 }
 </script>
 

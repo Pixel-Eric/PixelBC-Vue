@@ -111,6 +111,7 @@ export default {
         //获取文章的回复信息
         getReplyByPage(this.aid,this.page).then(res=>{
             this.repdata = res.data;
+            console.log(res.data)
             this.pageconfig.all = res.data.length;
             this.repflag =true;
         })

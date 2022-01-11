@@ -3,35 +3,7 @@
       <div class="login-top">
           <p>{{getName}}</p>
       </div>
-      <div class="login-ico" @click="jumpLogin" :style="getIco">
-
-      </div>
-      <div class="login-bottom" v-if="!show">
-          <ul>
-              <li @click="jumpRegister">用户注册</li>
-              <li>找回密码</li>
-          </ul>
-      </div>
-      <div class="login-fun" v-if="show">
-          <div>
-              <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-luntanzhongxin"></use>
-              </svg>
-              <p>消息</p>
-          </div>
-          <div>
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-gerenkongjian1"></use>
-            </svg>
-            <p>个人空间</p>
-          </div>
-          <div>
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-tianchongxing-"></use>
-            </svg>
-            <p>好友</p>
-          </div>
-      </div>
+      <div class="login-ico" @click="jumpLogin" :style="getIco" />
       <div class="line"></div>
   </div>
 </template>
@@ -58,7 +30,12 @@ export default {
         //获取路由组件
         const router = useRouter();
         function jumpLogin(){
-            router.push({name:'login'});
+            if(getSession2()!=null){
+                router.push({name:'Person'});
+            }else{
+                router.push({name:'login'});
+            }
+            
         }
         //未登录状态的初始信息
         let user = reactive({
@@ -76,12 +53,9 @@ export default {
                 user.getName = curUser.name;
                 user.level = curUser.rank;
         }
-        //跳转到注册
-        function jumpRegister(){
-            router.push({name:'Register'});
-        }
+
         return {
-            ...toRefs(user),jumpLogin,jumpRegister
+            ...toRefs(user),jumpLogin
         }
     }
 }
@@ -89,8 +63,10 @@ export default {
 
 <style lang='less' scoped>
 .login{
+    position: relative;
     width: 20em;
-    height: 28em;
+    // height: 28em;
+    min-height: 22em;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -98,6 +74,7 @@ export default {
     margin: 1em;
     overflow: hidden;
     box-shadow: 5px 5px 15px rgb(146, 145, 145);
+    background-color: white;
     .login-top{
         background-color: #0080ff;
         height: 12em;
@@ -186,7 +163,7 @@ export default {
         position: absolute;
         width: 15em;
         height: 15em;
-        top: 2.5em;
+        top: 4.3em;
         left: 2.5em;
         background-color: white;
         border-radius: 50%;
@@ -195,6 +172,9 @@ export default {
     }
 }
 .line{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     height: .3em;
     background-color: #0080ff;
 }

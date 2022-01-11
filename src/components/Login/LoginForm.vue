@@ -1,7 +1,7 @@
 <template>
   <div class="login-form">
       <div class="register">
-          <p>没有账号?点击注册</p>
+          <p @click="jumpRegister">没有账号?点击注册</p>
       </div>
       <div class="uname login-box">
           <label for="uname">CardID:</label>
@@ -57,7 +57,11 @@ export default {
               
           }
         }
-        return {ulogin,...toRefs(data)}
+        //跳转到注册
+        function jumpRegister(){
+            router.push({name:'Register'});
+        }
+        return {ulogin,...toRefs(data),jumpRegister}
     }
 }
 </script>

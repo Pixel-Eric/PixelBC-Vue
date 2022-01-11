@@ -31,9 +31,15 @@
                       <p>0</p>
                   </div>
                   <div class="medal">
-                      <p>M</p>
-                      <p>M</p>
-                      <p>M</p>
+                    <el-tooltip
+                        v-for="m in medal" :key="m.index"
+                        class="box-item"
+                        effect="dark"
+                        :content="m.mName"
+                        placement="bottom-start"
+                        >
+                      <img :src="m.mIco" alt="">
+                    </el-tooltip>
                   </div>
               </div>
           </div>
@@ -51,11 +57,8 @@
                 <div class="content" v-html="content">
                     
                 </div>
-                <!-- 点评该条评论 -->
-                <div class="reviews">
-                </div>
                 <!-- 用户发帖的个性标签 -->
-                <div class="personality-label">
+                <div class="personality-label" v-html="sign">
 
                 </div>
             </div>
@@ -65,14 +68,49 @@
 
 <script>
 import dayjs from 'dayjs'
+import { useStore } from 'vuex';
+import { getMedal } from '../../request/apis';
+import { ref } from 'vue';
 export default {
-    name:'Owner',
+    name:'Reply',
     props:["config"],
     setup(props){
         let config = props.config;
+        let medal = ref([]);
+        let store = useStore();
+        console.log(config)
+        //更新徽章信息
+        function pushmedal(info){
+            for(let i = 1;i<4;i++){
+                let key = 'm'+i;
+                if(info[key]!=-1){
+                    let mid = info[key];
+                    store.getters["medal/getMedal"].forEach(cur=>{
+                        if(cur.mId == mid ){
+                            medal.value.push(cur);
+                        }
+                    })
+                } 
+            }
+        }
+        async function loadmedal(){
+            if(store.getters["medal/getMedalInfo"]==null||store.getters["medal/getMedalInfo"][config.uid]==undefined){
+                let res = await getMedal(config.uid);
+                //给状态管理器做一个备份
+                store.commit("medal/SAVEMEDALUSER",{uid:config.uid,data:res.data});
+                pushmedal(res.data);
+            }else{
+                pushmedal(store.getters["medal/getMedalInfo"][config.uid]);
+            }
+        }
+        
+
         config.rtime = dayjs(new Date(config.rtime)).format("YYYY-MM-DD")
         config.time = dayjs(new Date(config.time)).format("YYYY-MM-DD HH:mm")
-        return {...config}
+        return {...config,medal,loadmedal}
+    },
+    created(){
+        this.loadmedal();
     }
 }
 </script>
@@ -128,11 +166,12 @@ export default {
                     padding: .3em 1em;
                     
                     //徽章占位符
-                    p{
-                        width: 2.5em;
-                        height: 2.5em;
+                    img{
+                        width: 4em;
+                        height: 4em;
                         border-radius: .3em;
-                        background-color: tomato;
+                        // background-color: tomato;
+                        cursor: pointer;
                         margin: 0 .5em;
                         display: flex;
                         justify-content: center;
@@ -173,17 +212,30 @@ export default {
         .owner-right-bottom{
             flex-grow: 1;
             .content{
-                min-height: 60%;
+                min-height: 20em;
                 padding: 1em;
             }
             .reviews{
                 min-height: 20%;
             }
             .personality-label{
-                 min-height: 20%;
+                position: relative;
+                padding: 1em;
+                 min-height: 12em;
+                 max-height: 30em;
                  border-top: dotted #333 1px;
             }
         }
     }
+}
+.personality-label::before{
+    content: "Personality Profile";
+    color: rgb(35, 182, 182);
+    font-size: .8em;
+    background-color: white;
+    padding: 0 1em;
+    position: absolute;
+    top: -.8em;
+    left: 0;
 }
 </style>

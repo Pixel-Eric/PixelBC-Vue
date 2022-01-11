@@ -154,3 +154,29 @@ export function getHomeCur(){
         url:`${process.env.VUE_APP_BASE_HOME}get`,
     })
 }
+//获取用户的勋章信息
+export function getMedal(uid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_MEDAL}getwearmedal/${uid}`
+    })
+}
+//获取全部徽章列表
+export function getAllMedal(){
+    return request({
+        url:`${process.env.VUE_APP_BASE_MEDAL}getallmedal`
+    })
+}
+//用户注册接口
+export function register(fName,fUname,fPwd,fSex,file){
+    let d = new FormData();
+    d.append("fName",fName);
+    d.append("fUname",fUname);
+    d.append("fPwd",fPwd);
+    d.append("fSex",fSex);
+    d.append("file",file);
+    return request({
+        url:`${process.env.VUE_APP_BASE_REGISTER}register`,
+        method:'post',
+        data:d
+    })
+}

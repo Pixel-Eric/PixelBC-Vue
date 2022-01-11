@@ -24,6 +24,14 @@ module.exports={
             //首页服务代理
             'api/home':{
                 target:'http://localhost:2048/'
+            },
+            //勋章代理
+            'api/medal':{
+                target:'http://localhost:3333/'    
+            },
+            //注册代理
+            'api/register':{
+                target:'http://localhost:6868'
             }
         }
     }

@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4848702",
+      "name": "工作室",
+      "font_class": "gongzuoshi",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "7820916",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "16017200",
+      "name": "25mail",
+      "font_class": "25mail",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "6908601",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "7817985",
+      "name": "关注",
+      "font_class": "guanzhu",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "7818006",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "25687476",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "ff3a",
+      "unicode_decimal": 65338
+    },
+    {
       "icon_id": "7150082",
       "name": "热门活动",
       "font_class": "remenhuodong",
