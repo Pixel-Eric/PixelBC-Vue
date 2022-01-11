@@ -101,9 +101,9 @@ export default {
                 getloginid().then(res=>{
                     if(res.data == this.uid){
                         this.isMaster = true;
-                        this.artflag = true;
                     }
                 })
+                this.artflag = true;
             }else{
                 this.artflag = true;
             }
