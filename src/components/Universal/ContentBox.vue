@@ -126,6 +126,7 @@ export default {
         input{
             border: none;
             outline: none;
+            margin-left: 1em;
             border-bottom: solid rgb(204, 204, 204);
             margin-bottom: 1em;
             padding: .3em;

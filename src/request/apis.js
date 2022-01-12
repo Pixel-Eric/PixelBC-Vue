@@ -180,3 +180,9 @@ export function register(fName,fUname,fPwd,fSex,file){
         data:d
     })
 }
+//获取用户的名字根据UID
+export function getUserName(uid){
+    return request({
+        url:`${process.env.VUE_APP_BASE_USER}getname/${uid}`
+    })
+}

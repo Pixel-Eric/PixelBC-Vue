@@ -44,7 +44,7 @@ export default {
     display: flex;
     height: 3em;
     .art-top-left{
-        width: 20em;
+        width: 18em;
         display: flex;
         align-items: center;
         justify-content: center;

@@ -6,7 +6,7 @@
         <div class="shox-content">
             <p>{{pIntro}}</p>
             <div class="shox-master">
-                <p>版主:论坛名称</p>
+                <p>版主:{{userName}}</p>
                 <p v-if="!newart">最新动态:暂无</p>
                 <p v-if="newart" @click="jumpArt" class="newart-a">最新动态:{{title}}</p>
             </div>
@@ -23,7 +23,7 @@
 <script>
 import { reactive,toRefs,ref } from "vue"
 import { useRouter } from "vue-router"; 
-import { getNewArt } from "../../request/apis";
+import { getNewArt,getUserName } from "../../request/apis";
 export default {
     props:["config"],
      setup(props){
@@ -34,13 +34,19 @@ export default {
             aid:-1
         })
         let newart = ref(false);
+        let userName = ref('');
         function jump(){
             router.push({name:'Section',params:{pid:config.pid,page:1}});
         }
         function jumpArt(){
             router.push({name:'article',params:{aid:artinfo.aid,page:1}});
         }
-        return {...toRefs(config),jump,...toRefs(artinfo),newart,jumpArt}
+        async function getMasterName(){
+            let name = await getUserName(config.pMid);
+            userName.value = name.data;
+        }
+        return {...toRefs(config),jump,...toRefs(artinfo),newart,
+        jumpArt,getMasterName,userName}
     },
     created(){
         //获取当前版块的最新文章信息
@@ -51,6 +57,8 @@ export default {
                 this.newart = true;
             }
         });
+        //获取当前版块版主的名称
+        this.getMasterName();
     }
 }
 </script>

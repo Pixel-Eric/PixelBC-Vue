@@ -49,8 +49,8 @@ export default {
                 width:"70%",
                 images_upload_url: 'http://localhost:8080/api/upload/load',
                 menubar:false,
-                plugins:"image link hr emoticons",
-                toolbar: " emoticons| image link | fontsizeselect bold italic underline strikethrough | forecolor backcolor blockquote | alignleft aligncenter alignright | hr subscript superscript", //引入插件
+                plugins:"image link hr emoticons table",
+                toolbar: " emoticons| image link | fontsizeselect bold italic underline strikethrough | forecolor backcolor blockquote | alignleft aligncenter alignright | hr subscript superscript | table", //引入插件
                 branding: false,
                 contextmenu: "bold forecolor",
                 contextmenu_never_use_native: true,

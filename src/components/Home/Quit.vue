@@ -1,5 +1,5 @@
 <template>
-  <div class="quit">
+  <div class="quit" @click="quit">
     <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-tuichu"></use>
     </svg>
@@ -9,8 +9,15 @@
 
 <script>
 import '@/assets/iconfont/iconfont.js'
+import { clearSessions } from '../../session'
 export default {
-
+    setup(){
+        function quit() {
+            clearSessions();
+            location.reload();
+        }
+        return {quit}
+    }
 }
 </script>
 

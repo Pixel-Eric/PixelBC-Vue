@@ -133,7 +133,7 @@ export default {
         }
     }
     .owner-left{
-        width: 20em;
+        width: 18em;
         background-color: rgb(213, 223, 231);
         .owner-left-top{
             padding-left: 1em;
@@ -158,17 +158,33 @@ export default {
                 // font-size: .8em;
                 color: #333;
                 &>p{
-                    padding-left: 1em;
+                    text-align: center;
+                    margin-bottom: 1em;
                 }
                 .medal{
+                    position: relative;
                     display: flex;
                     justify-content: center;
-                    padding: .3em 1em;
-                    
+                    height:8em;
+                    background-image: url(./images/背景板\ 拷贝.png);
+                    background-size: 100% 100%;
+                    border-radius: .5em;
+                    padding: 2.5em 0;
+                    box-sizing: border-box;
+                    margin: 1em .5em;
+                    &::before{
+                        content: "Wearing Medal";
+                        position: absolute;
+                        top: 0em;
+                        font-weight: bold;
+                        left: 1em;
+                        color: rgb(207, 17, 17);
+                        font-size: .8em;
+                    }
                     //徽章占位符
                     img{
-                        width: 4em;
-                        height: 4em;
+                        width: 3.5em;
+                        height: 3.5em;
                         border-radius: .3em;
                         // background-color: tomato;
                         cursor: pointer;
@@ -185,8 +201,12 @@ export default {
                     justify-content: space-between;
                     &>p:nth-of-type(1){
                         text-align: right;
+                        margin-left: 2em;
                         width: 5em;
                     }
+                     &>p:nth-of-type(2){
+                         margin-right: 2em;
+                     }
                 }
             }
         }
@@ -214,6 +234,9 @@ export default {
             .content{
                 min-height: 20em;
                 padding: 1em;
+                :deep(img){
+                    max-width: 800px;
+                }
             }
             .reviews{
                 min-height: 20%;

@@ -10,8 +10,8 @@
                   <span>正在加载</span>
               </template>
           </Suspense>
-          
-          <Box>
+          <!-- 移除部分 -->
+          <!-- <Box>
              <template v-slot:default>
                   <div class="other">
                     <ul>
@@ -21,12 +21,12 @@
                     </ul>
                   </div>
              </template>
-          </Box>
+          </Box> -->
           <Box>
               <template v-slot:default>
                   <div class="tip">
                     <img src="https://pixelfile-1306262005.cos.ap-nanjing.myqcloud.com/Image/bqbg.gif" alt="">
-                    <p>如有问题可以发送邮件至:pxiel@163.com</p>
+                    <p>如有问题可以发送邮件至:pixel@163.com</p>
                   </div>
               </template>
           </Box>

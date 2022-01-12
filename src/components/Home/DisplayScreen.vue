@@ -5,10 +5,7 @@
               <InfoVue />
           </div> 
           <div class="disc-rigth">
-              <img src="./images/tgd.jpeg" alt="">
-              <div class="tip">
-                  <p>标题栏</p>
-              </div>
+             <Scroll1 />
           </div>     
       </div>
   </BoxVue>
@@ -17,8 +14,10 @@
 <script>
 import BoxVue from "./Box.vue"
 import InfoVue from "./Info.vue"
+import Scroll from "./Scroll.vue"
+import Scroll1 from "./Scroll.vue"
 export default {
-    components:{BoxVue,InfoVue}
+    components:{ BoxVue, InfoVue, Scroll, Scroll1 }
 }
 </script>
 

@@ -1,9 +1,9 @@
 <template>
     <div v-if="show" class="edit">
+        <div class="open" @click="close" >
+            <p>关闭</p>
+        </div>
         <div class="container">
-            <div class="open" @click="close" >
-                <p>关闭</p>
-            </div>
             <div class="head">
                 <p @click="send">保存</p>
             </div>
@@ -106,7 +106,6 @@ export default {
 
 <style lang='scss' scoped>
 .content{
-    overflow: scroll;
     display: flex;
     flex-direction: column;
     .icon{
@@ -134,7 +133,9 @@ export default {
     }
 }
 .open{
-    position: absolute;right: -3em;top: -2.5em;
+    position: absolute;
+    left: 50%;
+    top: 8em;
     color: white;
 }
 .edit{
@@ -149,9 +150,12 @@ export default {
 }
 .container{
     position: relative;
+    overflow: scroll;
+    overflow-x: hidden;
     margin-top: 1em;
     background-color: white;
     width: 60%;
+    height:60%;
     .head{
         background: #2497c5;
         height: 1em;

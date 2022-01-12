@@ -41,7 +41,12 @@ export function getSectionStatus(pid){
 }
 //设置当前版块简介的展开状态
 export function setSectionStatus(pid,option){
+    
     let sectionSession = getSection();
     sectionSession[pid] = option;
     window.sessionStorage.setItem('section',JSON.stringify(sectionSession));
+}
+//清除登录信息
+export function clearSessions(){
+    window.sessionStorage.removeItem('pixel');
 }
