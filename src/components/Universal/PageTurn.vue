@@ -69,7 +69,6 @@ export default {
         //保证除数不为零
         let all = config.all?config.all:1;   //总条数
         let total =config.total?config.total:1; //显示条数
-
         if(parseInt(regx.exec(all/total)?.groups.last) < 5){
             config.page = Math.round(config.all/config.total)+1;
         }else{
